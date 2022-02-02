@@ -54,7 +54,7 @@ class SignUpViewController: UIViewController {
     }
 
     @IBAction func signUpButtonTapped(_ sender: UIButton) {
-
+        presenter.signUpTapped()
     }
 
     func registerDelegates() {

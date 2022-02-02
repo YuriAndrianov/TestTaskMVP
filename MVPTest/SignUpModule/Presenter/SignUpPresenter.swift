@@ -22,6 +22,8 @@ protocol SignUpViewPresenterProtocol: AnyObject {
 
     func checkTextFormat(text: String, validType: String.ValidTypes)
 
+    func signUpTapped()
+
 }
 
 class SignUpPresenter: SignUpViewPresenterProtocol {
@@ -34,9 +36,8 @@ class SignUpPresenter: SignUpViewPresenterProtocol {
         self.router = router
     }
 
-
     func signUpTapped() {
-        router?.showSignUp()
+        router?.showMain()
     }
 
     func setText(inputText: String, range: NSRange, validType: String.ValidTypes) {
