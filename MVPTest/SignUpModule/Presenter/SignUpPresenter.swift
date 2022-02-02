@@ -9,16 +9,8 @@ import Foundation
 
 protocol SignUpViewProtocol: AnyObject {
 
-    func nameFormatApproved()
-    func nameFormatError()
-    func ageError()
-    func ageApproved()
-    func phoneFormatError()
-    func phoneFormatApproved()
-    func emailFormatError()
-    func emailFormatApproved()
-    func passwordFormatError()
-    func passwordFormatApproved()
+    func setTextField(with text: String, textFieldType: String.ValidTypes)
+    func setupValidationLabel(textFieldType: String.ValidTypes, isValid: Bool)
 
 }
 
@@ -26,12 +18,9 @@ protocol SignUpViewPresenterProtocol: AnyObject {
 
     init(view: SignUpViewProtocol, router: RouterProtocol)
 
-    func nameEntered()
-    func dayOfBirthChosen()
-    func phoneEntered()
-    func emailEntered()
-    func passwordEntered()
-    func signUpTapped()
+    func setText(inputText: String, range: NSRange, validType: String.ValidTypes)
+
+    func checkTextFormat(text: String, validType: String.ValidTypes)
 
 }
 
@@ -45,28 +34,30 @@ class SignUpPresenter: SignUpViewPresenterProtocol {
         self.router = router
     }
 
-    func nameEntered() {
-
-    }
-
-    func dayOfBirthChosen() {
-
-    }
-
-    func phoneEntered() {
-
-    }
-
-    func emailEntered() {
-
-    }
-
-    func passwordEntered() {
-
-    }
 
     func signUpTapped() {
+        router?.showSignUp()
+    }
 
+    func setText(inputText: String, range: NSRange, validType: String.ValidTypes) {
+        let result: String
+
+        if range.length == 1 {
+            let end = inputText.index(inputText.startIndex, offsetBy: inputText.count - 1)
+            result = String(inputText[inputText.startIndex..<end])
+        } else {
+            result = inputText
+        }
+
+        view?.setTextField(with: result, textFieldType: validType)
+    }
+
+    func checkTextFormat(text: String, validType: String.ValidTypes) {
+        if text.isValid(validType: validType) {
+            view?.setupValidationLabel(textFieldType: validType, isValid: true)
+        } else {
+            view?.setupValidationLabel(textFieldType: validType, isValid: false)
+        }
     }
 
 }

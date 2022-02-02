@@ -48,7 +48,7 @@ class AuthPresenter: AuthViewPresenterProtocol {
     }
 
     func didTapSignUp() {
-
+        router?.showSignUp()
     }
 
 
